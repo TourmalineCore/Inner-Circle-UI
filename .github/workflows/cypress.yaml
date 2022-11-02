@@ -5,6 +5,11 @@ on:
         branches:
             - feature/*
             - develop
+env: 
+    QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+    USER_LOGIN: ${{ secrets.USER_LOGIN }}
+    USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
 jobs:
     cypress-test:
         name: Run on Chrome 106
@@ -23,7 +28,8 @@ jobs:
 
             - name: Start react app and run cypress tests
               continue-on-error: true
-              run: node ./helpers/qase-pre-script.js && QASE_REPORT=1, QASE_API_TOKEN=${{ secrets.QASE_API_TOKEN }} npx cypress run --env userLogin=${{ secrets.USER_LOGIN }},userPassword=${{ secrets.USER_PASSWORD }} --browser chrome && node ./helpers/qase-post-script.js
+              run: |
+              $QASE_API_TOKEN node ./helpers/qase-pre-script.js && start-test 3000 'QASE_REPORT=1, $QASE_API_TOKEN npx cypress run --env $USER_LOGIN,$USER_PASSWORD --browser chrome' && $QASE_API_TOKEN node ./helpers/qase-post-script.js
 
             - name: Deploy report to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3

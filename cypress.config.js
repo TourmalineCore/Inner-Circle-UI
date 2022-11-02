@@ -11,7 +11,7 @@ export default defineConfig({
     viewportWidth: 1200,
     viewportHeight: 660,
     specPattern: 'cypress/e2e/**/*.cy.js',
-    baseUrl: 'https://tourmalinecore.github.io/React-Admin-Template',
+    baseUrl: 'http://localhost:3000',
     video: false,
     setupNodeEvents(on, config) {
       mochawesomeWriter(on, config);
