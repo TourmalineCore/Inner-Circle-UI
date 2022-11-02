@@ -1,6 +1,6 @@
 const sdk = require('api')('@qase/v1.0#13qz761q8l6dvn602');
 
-const qaseToken = 'c8a3108a147bf48449b7c1dd01466c1c9f61f90b';
+const qaseToken = process.env.QASE_API_TOKEN;
 
 module.exports = class QaseApiHelper {
   static async getAllTestRuns() {
