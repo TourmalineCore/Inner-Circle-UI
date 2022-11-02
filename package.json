@@ -80,7 +80,8 @@
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
     "cy:dev": "start-test 3000 cy:open",
-    "cy:start": "start-test 3000 'npx cypress run'"
+    "cy:start": "start-test 3000 'npx cypress run'",
+    "cy:ci": "QASE_REPORT=1, QASE_API_TOKEN=$QASE_API_TOKEN && start-test 3000 'npx cypress run --env userLogin=$USER_LOGIN,userPassword=$USER_PASSWORD --browser chrome'"
   },
   "browserslist": {
     "production": [

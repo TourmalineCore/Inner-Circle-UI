@@ -30,7 +30,9 @@ jobs:
             - name: Start react app and run cypress tests
               continue-on-error: true
               run: |
-                QASE_API_TOKEN=$QASE_API_TOKEN node ./helpers/qase-pre-script.js && QASE_REPORT=1, QASE_API_TOKEN=$QASE_API_TOKEN start-test 3000 'npx cypress run --env userLogin=$USER_LOGIN,userPassword=$USER_PASSWORD --browser chrome' && QASE_API_TOKEN=$QASE_API_TOKEN node ./helpers/qase-post-script.js
+                QASE_API_TOKEN=$QASE_API_TOKEN node ./helpers/qase-pre-script.js 
+                npm run cy:ci
+                QASE_API_TOKEN=$QASE_API_TOKEN node ./helpers/qase-post-script.js
 
             - name: Deploy report to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
