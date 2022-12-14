@@ -19,6 +19,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ template "chart.fullname" . }}-service
+            name: {{ template "chart.fullname" . }}-servic
             port: 
               number: 80
