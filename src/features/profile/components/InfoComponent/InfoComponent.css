@@ -1,0 +1,15 @@
+.info-component {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.info-component__icon {
+  align-items: center;
+}
+
+.info-component__value {
+  margin-left: 10px;
+  font-size: 20px;
+  text-align: center;
+}
