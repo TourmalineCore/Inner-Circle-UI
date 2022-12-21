@@ -1,9 +1,16 @@
-import { ReactNode } from 'react';
+export type Employee = {
+  id: number
+  fullName: string;
+  corporateEmail: string;
+  personalEmail: string;
+  phone: string | null;
+  gitHub: string | null;
+  gitLab: string | null;
+};
 
-type ProfileNavItems = {
-  text?: string;
-  icon?: ReactNode;
-  href: string;
-  onClick?: () => unknown;
-  active?: boolean;
+export type EmployeeUpdateType = {
+  'personalEmail': string,
+  'phone': string | null,
+  'gitHub': string | null,
+  'gitLab': string | null
 };
