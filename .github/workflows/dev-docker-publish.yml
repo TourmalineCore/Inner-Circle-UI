@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - develop
-      - feature/recover-ci
-  pull_request:
+      - master
+      - ci/#863gxmf5j-prepare-to-prod
 
 env:
   GITHUB_REGISTRY: ghcr.io
@@ -26,8 +26,10 @@ jobs:
   deploy-to-dev-k8s:
     needs: build-image
     name: Deploy service to k8s for development environment  
-    if: github.event_name == 'push'
+    if: github.ref_name == 'develop'
     runs-on: ubuntu-22.04
+    environment: dev
+
     steps:
       - name: checkout
         uses: actions/checkout@v1
@@ -40,12 +42,49 @@ jobs:
             helm upgrade --install --namespace dev-inner-circle --create-namespace --values ./ci/values-custom.yaml \
             --set "image.tag=${{ github.sha }}" \
             --set "ingress.enabled=true" \
-            --set "ingress.hostname=${{ secrets.DEV_HOST }}" \
-            --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ secrets.DEV_LINK_TO_SALARY_SERVICE }}" \
-            --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}" \
-            --set "extraConfigMapEnvVars.ENV_KEY=${{ secrets.DEV_ENV }}" \
+            --set "ingress.hostname=${{ vars.HOST }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ vars.LINK_TO_SALARY_SERVICE }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ vars.LINK_TO_ACCOUNT_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.LINK_TO_API_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.ENV_KEY=${{ vars.ENV_KEY }}" \
+            --set "resources.limits.cpu=${{ vars.APP_CPU_LIMIT }}" \
+            --set "resources.limits.memory=${{ vars.APP_MEMORY_LIMIT }}" \
+            --set "resources.requests.cpu=${{ vars.APP_CPU_REQUESTS }}" \
+            --set "resources.requests.memory=${{ vars.APP_MEMORY_REQUESTS }}" \
             "${RELEASE_NAME}" \
             bitnami/nginx
-          kubeconfig: "${{ secrets.DEV_KUBECONFIG }}"
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+
+  deploy-to-prod-k8s:
+    needs: build-image
+    name: Deploy service to k8s for production environment  
+    if: github.ref_name == 'ci/#863gxmf5j-prepare-to-prod'
+    runs-on: ubuntu-22.04
+    environment: prod
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: Deploy
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: |
+            RELEASE_NAME=ui
+            helm repo add bitnami https://charts.bitnami.com/bitnami
+            helm upgrade --install --namespace prod-inner-circle --create-namespace --values ./ci/values-custom.yaml \
+            --set "image.tag=${{ github.sha }}" \
+            --set "ingress.enabled=true" \
+            --set "ingress.hostname=${{ vars.HOST }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ vars.LINK_TO_SALARY_SERVICE }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ vars.LINK_TO_ACCOUNT_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.LINK_TO_API_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.ENV_KEY=${{ vars.ENV_KEY }}" \
+            --set "resources.limits.cpu=${{ vars.APP_CPU_LIMIT }}" \
+            --set "resources.limits.memory=${{ vars.APP_MEMORY_LIMIT }}" \
+            --set "resources.requests.cpu=${{ vars.APP_CPU_REQUESTS }}" \
+            --set "resources.requests.memory=${{ vars.APP_MEMORY_REQUESTS }}" \
+            "${RELEASE_NAME}" \
+            bitnami/nginx
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
