@@ -45,8 +45,8 @@ jobs:
             --set "ingress.hostname=${{ vars.HOST }}" \
             --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ vars.LINK_TO_SALARY_SERVICE }}" \
             --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ vars.LINK_TO_ACCOUNT_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.LINK_TO_API_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.API_ROOT }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.API_ROOT_AUTH }}" \
             --set "extraConfigMapEnvVars.ENV_KEY=${{ vars.ENV_KEY }}" \
             --set "resources.limits.cpu=${{ vars.APP_CPU_LIMIT }}" \
             --set "resources.limits.memory=${{ vars.APP_MEMORY_LIMIT }}" \
@@ -78,8 +78,8 @@ jobs:
             --set "ingress.hostname=${{ vars.HOST }}" \
             --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ vars.LINK_TO_SALARY_SERVICE }}" \
             --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ vars.LINK_TO_ACCOUNT_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.LINK_TO_API_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ vars.API_ROOT }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ vars.API_ROOT_AUTH }}" \
             --set "extraConfigMapEnvVars.ENV_KEY=${{ vars.ENV_KEY }}" \
             --set "resources.limits.cpu=${{ vars.APP_CPU_LIMIT }}" \
             --set "resources.limits.memory=${{ vars.APP_MEMORY_LIMIT }}" \
