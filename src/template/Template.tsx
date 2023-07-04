@@ -17,9 +17,6 @@ import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
 import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
-// import BarcodeScanner from '../components/BarcodeScanner/BarcodeScanner';
-import Html5QrcodePlugin from '../components/BarcodeScanner/Html5QrcodeScannerPlugin';
-import { ReactZxing } from '../components/BarcodeScanner/ReactZxing';
 
 function Template() {
   const location = useLocation();
@@ -37,15 +34,6 @@ function Template() {
   const prevBreadcrumbPath = breadcrumbs.length > 1
     ? breadcrumbs[breadcrumbs.length - 2].key
     : null;
-
-  const [result, setResult] = useState<any>('');
-
-  const onNewScanResult = (decodedText: any, decodedResult:any) => {
-    // handle decoded results here
-    console.log('HTML5 scanner decodedText', decodedText);
-    console.log('HTML5 scanner decodedResult', decodedResult);
-    setResult(decodedText);
-  };
 
   return (
     <>
@@ -81,20 +69,6 @@ function Template() {
           <div className="template__panel template__panel--top">
             <Breadcrumbs list={breadcrumbs} />
           </div>
-          <Html5QrcodePlugin
-            fps={10}
-            qrbox={700}
-            disableFlip={false}
-            qrCodeSuccessCallback={onNewScanResult}
-          />
-          <div>
-            Html5QrcodePlugin:
-            {' '}
-            {result}
-          </div>
-          {/* <div>BarcodeScanner Xzing</div>
-          <BarcodeScanner /> */}
-          <ReactZxing />
 
           <div className="template__content">
             <TemplatePages routes={adminRoutes} />

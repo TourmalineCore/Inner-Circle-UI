@@ -14,6 +14,7 @@ import {
   rolesSidebarRoutes,
   sidebarAccountManagement,
 } from '../features/account-management/routers';
+import { testScannerRoutes } from '../features/test-scanner/routes';
 
 export function getAdminRoutes(accessPermissions: Map<keyof typeof Permission, boolean>) {
   const routes: {
@@ -21,6 +22,8 @@ export function getAdminRoutes(accessPermissions: Map<keyof typeof Permission, b
     breadcrumb: string | ((props: BreadcrumbComponentProps) => string | undefined);
     Component: () => JSX.Element;
   }[] = [];
+
+  routes.push(...testScannerRoutes);
 
   if (accessPermissions.get('ViewPersonalProfile')) {
     routes.push(...profileRoutes);
