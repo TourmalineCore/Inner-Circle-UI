@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature/scanner-test
 
 env:
   GITHUB_REGISTRY: ghcr.io
