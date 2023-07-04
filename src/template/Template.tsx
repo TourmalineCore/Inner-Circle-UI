@@ -17,6 +17,8 @@ import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
 import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
+import BarcodeScanner from '../components/BarcodeScanner/BarcodeScanner';
+import Html5QrcodePlugin from '../components/BarcodeScanner/Html5QrcodeScannerPlugin';
 
 function Template() {
   const location = useLocation();
@@ -35,6 +37,11 @@ function Template() {
     ? breadcrumbs[breadcrumbs.length - 2].key
     : null;
 
+  const onNewScanResult = (decodedText: any, decodedResult:any) => {
+    // handle decoded results here
+    console.log('HTML5 scanner decodedText', decodedText);
+    console.log('HTML5 scanner decodedResult', decodedResult);
+  };
   return (
     <>
       <div
@@ -69,7 +76,14 @@ function Template() {
           <div className="template__panel template__panel--top">
             <Breadcrumbs list={breadcrumbs} />
           </div>
-
+          <Html5QrcodePlugin
+            fps={10}
+            qrbox={700}
+            disableFlip={false}
+            qrCodeSuccessCallback={onNewScanResult}
+          />
+          <div>BarcodeScanner Xzing</div>
+          <BarcodeScanner />
           <div className="template__content">
             <TemplatePages routes={adminRoutes} />
           </div>
