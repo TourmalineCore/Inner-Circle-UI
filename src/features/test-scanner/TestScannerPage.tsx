@@ -1,6 +1,7 @@
 import { Html5QrcodeScanType, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { useState } from 'react';
 import Html5QrcodePlugin from '../../components/BarcodeScanner/Html5QrcodeScannerPlugin';
+import { ReactZxing } from '../../components/BarcodeScanner/ReactZxing';
 
 const formatsToSupport = [
   Html5QrcodeSupportedFormats.CODE_39,
@@ -26,21 +27,24 @@ function TestScannerPage() {
   };
 
   return (
-    <div>
-      <Html5QrcodePlugin
-        fps={10}
-        qrbox={250}
-        disableFlip={false}
-        qrCodeSuccessCallback={onNewScanResult}
-        supportedScanTypes={[Html5QrcodeScanType.SCAN_TYPE_CAMERA]}
-        formatsToSupport={formatsToSupport}
-      />
+    <>
+      <ReactZxing />
       <div>
-        Html5QrcodePlugin:
-        {' '}
-        {result}
+        <Html5QrcodePlugin
+          fps={10}
+          qrbox={250}
+          disableFlip={false}
+          qrCodeSuccessCallback={onNewScanResult}
+          supportedScanTypes={[Html5QrcodeScanType.SCAN_TYPE_CAMERA]}
+          formatsToSupport={formatsToSupport}
+        />
+        <div>
+          Html5QrcodePlugin:
+          {' '}
+          {result}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
