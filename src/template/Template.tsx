@@ -37,11 +37,15 @@ function Template() {
     ? breadcrumbs[breadcrumbs.length - 2].key
     : null;
 
+  const [result, setResult] = useState<any>('');
+
   const onNewScanResult = (decodedText: any, decodedResult:any) => {
     // handle decoded results here
     console.log('HTML5 scanner decodedText', decodedText);
     console.log('HTML5 scanner decodedResult', decodedResult);
+    setResult(decodedText);
   };
+
   return (
     <>
       <div
@@ -82,6 +86,11 @@ function Template() {
             disableFlip={false}
             qrCodeSuccessCallback={onNewScanResult}
           />
+          <div>
+            Html5QrcodePlugin:
+            {' '}
+            {result}
+          </div>
           <div>BarcodeScanner Xzing</div>
           <BarcodeScanner />
           <div className="template__content">
