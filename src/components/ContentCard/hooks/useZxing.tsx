@@ -11,7 +11,7 @@ interface ZxingOptions {
   onError?: (error: Error) => void;
 }
 
-export const useZxing = ({
+export const useCustomZxing = ({
   constraints = {
     audio: false,
     video: {

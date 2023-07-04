@@ -17,8 +17,9 @@ import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
 import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
-import BarcodeScanner from '../components/BarcodeScanner/BarcodeScanner';
+// import BarcodeScanner from '../components/BarcodeScanner/BarcodeScanner';
 import Html5QrcodePlugin from '../components/BarcodeScanner/Html5QrcodeScannerPlugin';
+import { ReactZxing } from '../components/BarcodeScanner/ReactZxing';
 
 function Template() {
   const location = useLocation();
@@ -91,8 +92,10 @@ function Template() {
             {' '}
             {result}
           </div>
-          <div>BarcodeScanner Xzing</div>
-          <BarcodeScanner />
+          {/* <div>BarcodeScanner Xzing</div>
+          <BarcodeScanner /> */}
+          <ReactZxing />
+
           <div className="template__content">
             <TemplatePages routes={adminRoutes} />
           </div>
