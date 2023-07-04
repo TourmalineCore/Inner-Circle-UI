@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 // @ts-nocheck
 import { useState } from 'react';
-import { useZxinq } from 'react-zxing';
+import { useZxing } from 'react-zxing';
 
 export const ReactZxing = () => {
   const [result, setResult] = useState('');
-  const { ref } = useZxinq({
+  const { ref } = useZxing({
     // @ts-ignore
     onResult(result) {
       setResult(result.getText());
