@@ -33,7 +33,7 @@ function TestScannerPage() {
       <div>
         <Html5QrcodePlugin
           fps={10}
-          qrbox={250}
+          qrbox={50}
           disableFlip={false}
           qrCodeSuccessCallback={onNewScanResult}
           supportedScanTypes={[Html5QrcodeScanType.SCAN_TYPE_CAMERA]}
