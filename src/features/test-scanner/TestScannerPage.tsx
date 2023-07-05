@@ -27,7 +27,8 @@ function TestScannerPage() {
   };
 
   return (
-    <>
+    <section>
+
       <ReactZxing />
       <div>
         <Html5QrcodePlugin
@@ -44,7 +45,7 @@ function TestScannerPage() {
           {result}
         </div>
       </div>
-    </>
+    </section>
   );
 }
 

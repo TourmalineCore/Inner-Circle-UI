@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { BrowserMultiFormatReader, DecodeHintType, Result } from '@zxing/library';
+import {
+  BrowserMultiFormatReader, DecodeHintType, Result,
+} from '@zxing/library';
 import { useEffect, useMemo, useRef } from 'react';
 
 interface ZxingOptions {
@@ -27,12 +29,15 @@ export const useCustomZxing = ({
 
   const reader = useMemo<BrowserMultiFormatReader>(() => {
     const instance = new BrowserMultiFormatReader(hints);
+
     instance.timeBetweenDecodingAttempts = timeBetweenDecodingAttempts;
     return instance;
   }, [hints, timeBetweenDecodingAttempts]);
 
   useEffect(() => {
     if (!ref.current) return;
+    reader.drawFrameOnCanvas(ref.current);
+
     reader.decodeFromConstraints(constraints, ref.current, (result, error) => {
       if (result) onResult(result);
       if (error) onError(error);
